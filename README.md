@@ -11,6 +11,12 @@ Here's how you should start.
 Install SmartPy CLI Tool: https://smartpy.io/docs/cli/
 Now, you are good to go.
 
+# How to install
+Here's the command.
+```
+npx create-tezos-app name-of-your-dapp
+```
+
 # Folder structure
 
 ```
@@ -29,8 +35,8 @@ NOTE: A sample contract has been kept in the repo and compiled for reference.
 
 Create a .env file with the keys mentioned in the .env.example file.
 
-1. TEZOS_RPC_URL => Add tezos mainnet / testnet rpc urls.
-2. ORIGINATOR_PRIVATE_KEY => Add the private key through which you'd want to deploy your contracts.
+1. ``TEZOS_RPC_URL`` -> Add tezos mainnet / testnet rpc URLs. Reference: https://tezostaquito.io/docs/rpc_nodes/
+2. ``ORIGINATOR_PRIVATE_KEY`` -> Add the private key through which you'd want to deploy your contracts.
 
 # Commands you should know
 

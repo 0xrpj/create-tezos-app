@@ -1,6 +1,6 @@
 {
   "name": "create-tezos-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Tezos Dapp Starter using Typescript and Taquito.",
   "bin": "./bin/cli.js",
   "scripts": {

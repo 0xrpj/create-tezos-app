@@ -1,13 +1,18 @@
 {
-  "name": "nft-mint_contract",
+  "name": "create-tezos-dapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Tezos Dapp Starter using Typescript and Taquito.",
+  "bin": "./bin/cli.js",
   "scripts": {
     "compile": "bash ./compile.sh",
     "deploy": "npx ts-node scripts/deploy.ts"
   },
   "author": "Roshan Parajuli",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xrpj/create-tezos-dapp"
+  },
   "dependencies": {
     "@taquito/signer": "^14.0.0",
     "@taquito/taquito": "^14.0.0",

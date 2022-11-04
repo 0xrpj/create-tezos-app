@@ -1,5 +1,5 @@
 {
-  "name": "create-tezos-dapp",
+  "name": "create-tezos-dapp-pj",
   "version": "1.0.0",
   "description": "A Tezos Dapp Starter using Typescript and Taquito.",
   "bin": "./bin/cli.js",

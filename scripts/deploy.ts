@@ -1,31 +1,44 @@
 import * as dotenv from "dotenv";
 import { TezosToolkit } from "@taquito/taquito";
 import { InMemorySigner } from "@taquito/signer";
+import { NETWORK } from "../config/config";
 
 dotenv.config();
 
 const deploy = async () => {
+  type networkTypes = keyof typeof NETWORK;
+
+  const { ORIGINATOR_PRIVATE_KEY } = process.env;
   let file = process.argv[2];
+  let rpcType: networkTypes = process.argv[3]
+    ?.toUpperCase()
+    .slice(1) as networkTypes;
+
+  console.info("Staring validation...");
+
+  if (!ORIGINATOR_PRIVATE_KEY) {
+    console.error("Private key missing in the environment.");
+    return;
+  }
 
   if (!file) {
     console.log("Pass filename to deploy! Read the docs.");
     return;
   }
 
-  file = file.toLowerCase();
-
-  console.log("Starting...");
-
-  const { TEZOS_RPC_URL, ORIGINATOR_PRIVATE_KEY } = process.env;
-  if (!TEZOS_RPC_URL || !ORIGINATOR_PRIVATE_KEY) {
-    console.error("ENV ERROR");
+  if (!rpcType || !Object.keys(NETWORK).includes(rpcType)) {
+    console.log("Valid networks:", Object.keys(NETWORK));
+    console.error("Invalid network");
     return;
   }
 
+  file = file.toLowerCase();
+
   const signer = await InMemorySigner.fromSecretKey(ORIGINATOR_PRIVATE_KEY);
-  const Tezos = new TezosToolkit(TEZOS_RPC_URL);
+  const Tezos = new TezosToolkit(NETWORK[rpcType].url);
   Tezos.setProvider({ signer: signer });
 
+  console.log(`Validation checks out... \nDeploying the ${file} contract..\n`);
   try {
     const { hash, contractAddress } = await Tezos.contract.originate({
       code: require(`../contracts/build/${file}.json`),
@@ -37,7 +50,11 @@ const deploy = async () => {
     console.log(`>> Contract address: ${contractAddress}`);
   } catch (error) {
     console.log(
-      `CanNOT find ${file}.json or ${file}_storage.json inside build folder. \nMake sure you've compiled the contracts.\nExiting...`
+      `Oops... Deployment faced an issue.\nHere's the detailed info about the error,\n${error}`
+    );
+
+    console.log(
+      "Make sure of these things. \n1. Compiled contracts are inside the build folder.\n2. You have enough Tezos balance in the wallet for deployment."
     );
   }
 };

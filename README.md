@@ -54,9 +54,12 @@ Note: Make sure the contract name is in lowercase and is inside the contract/src
 ## Originating (Deploying) a contract
 
 ```
-npm run deploy [contractName]
+npm run deploy [contractName] [@network]
 
-Example: npm run deploy counter
+Example: npm run deploy counter @mainnet
+         npm run deploy counter @ghostnet
+         npm run deploy counter @kathmandunet
+         npm run deploy counter @jakartanet
 ```
 
 Note: Make sure the compiled contracts are inside the contract/build/ folder.
